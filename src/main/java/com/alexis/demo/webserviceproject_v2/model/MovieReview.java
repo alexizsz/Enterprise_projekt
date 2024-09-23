@@ -1,7 +1,15 @@
 package com.alexis.demo.webserviceproject_v2.model;
 
 import jakarta.persistence.*;
-
+/**JSON format för enklare testning:
+{
+  "review": "skriv recensionen här",
+  "rating": rating,
+  "movie": {
+      "id": Den id som filmen är sparat som
+    }
+}
+*/
 @Entity
 public class MovieReview {
 

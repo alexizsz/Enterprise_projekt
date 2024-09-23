@@ -12,11 +12,11 @@ public class MovieService {
     @Value("${tmdb.api.key}")
     private String apiKey;
 
-    public MovieService(RestTemplate restTemplate){
+    public MovieService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    public String searchMovies(String query){
+    public String searchMovies(String query) {
         String url = UriComponentsBuilder.fromHttpUrl("https://api.themoviedb.org/3/search/movie")
                 .queryParam("api_key", apiKey)
                 .queryParam("query", query)

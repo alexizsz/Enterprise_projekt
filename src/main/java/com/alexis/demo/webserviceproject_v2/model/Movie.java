@@ -1,7 +1,14 @@
 package com.alexis.demo.webserviceproject_v2.model;
 
 import jakarta.persistence.*;
-
+/**JSON format för enklare testning:
+{
+    "title": "title",
+    "director": "director",
+    "genre": "genre",
+    "releaseYear": xxxx
+}
+ */
 @Entity
 public class Movie {
 
@@ -61,4 +68,5 @@ public class Movie {
     public void setReleaseYear(int releaseYear) {
         this.releaseYear = releaseYear;
     }
+
 }

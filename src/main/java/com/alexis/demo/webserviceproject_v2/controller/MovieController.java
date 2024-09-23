@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-
 @RestController
 @RequestMapping("/movies")
 public class MovieController {
@@ -21,8 +20,8 @@ public class MovieController {
     private final MovieRepository movieRepository;
 
     public MovieController(MovieRepository movieRepository, MovieService movieService) {
-        this.movieRepository=movieRepository;
-        this.movieService=movieService;
+        this.movieRepository = movieRepository;
+        this.movieService = movieService;
     }
 
     @GetMapping
