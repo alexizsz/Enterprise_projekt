@@ -35,7 +35,7 @@ public class MovieReviewController {
     @PostMapping("/movie/{movieId}")
     public ResponseEntity<?> addReviewToMovie(@PathVariable Long movieId, @RequestBody MovieReview review) {
         Optional<Movie> optionalMovie = movieRepository.findById(movieId);
-        if (!optionalMovie.isPresent()) {
+        if (optionalMovie.isEmpty()) {
             return new ResponseEntity<>("Movie not found", HttpStatus.NOT_FOUND);
         }
         Movie movie = optionalMovie.get();
@@ -45,10 +45,10 @@ public class MovieReviewController {
     }
 
     @DeleteMapping("/{reviewId}")
-    public ResponseEntity<String> deleteReview(@PathVariable Long reviewId) {
+    public ResponseEntity<Void> deleteReview(@PathVariable Long reviewId) {
         if (movieReviewRepository.existsById(reviewId)) {
             movieReviewRepository.deleteById(reviewId);
-            return new ResponseEntity<>("Review has been removed",HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
