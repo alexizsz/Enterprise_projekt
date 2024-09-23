@@ -39,14 +39,12 @@ public class MovieReviewController {
         if (!optionalMovie.isPresent()) {
             return new ResponseEntity<>("Movie not found", HttpStatus.NOT_FOUND);
         }
-
-        review.setMovie(optionalMovie.get());
-
-
+        Movie movie = optionalMovie.get();
+        review.setMovie(movie);
         MovieReview savedReview = movieReviewRepository.save(review);
-
         return new ResponseEntity<>(savedReview, HttpStatus.CREATED);
     }
+
 
     @DeleteMapping("/{reviewId}")
     public ResponseEntity<Void> deleteReview(@PathVariable Long reviewId) {
