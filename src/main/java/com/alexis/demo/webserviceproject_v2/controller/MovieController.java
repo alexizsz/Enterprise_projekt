@@ -45,7 +45,7 @@ public class MovieController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<String> searchMovies(@RequestParam String query) {
+    public ResponseEntity<String> searchMovie(@RequestParam String query) {
         String response = movieService.searchMovies(query);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

@@ -24,11 +24,10 @@ public class MovieReviewController {
     }
 
     @GetMapping("/movie/{movieId}")
-    public ResponseEntity<List<MovieReview>> getReviewsByMovieId(@PathVariable Long movieId) {
+    public ResponseEntity<List<MovieReview>> getReviewByMovieId(@PathVariable Long movieId) {
         if (!movieRepository.existsById(movieId)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
         List<MovieReview> reviews = movieReviewRepository.findByMovieId(movieId);
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
@@ -45,12 +44,11 @@ public class MovieReviewController {
         return new ResponseEntity<>(savedReview, HttpStatus.CREATED);
     }
 
-
     @DeleteMapping("/{reviewId}")
-    public ResponseEntity<Void> deleteReview(@PathVariable Long reviewId) {
+    public ResponseEntity<String> deleteReview(@PathVariable Long reviewId) {
         if (movieReviewRepository.existsById(reviewId)) {
             movieReviewRepository.deleteById(reviewId);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>("Review has been removed",HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
