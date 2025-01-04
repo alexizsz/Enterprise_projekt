@@ -1,4 +1,4 @@
-package com.alexis.demo.webserviceproject_v2.service;
+package com.alexis.demo.java_enterprise_project.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

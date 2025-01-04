@@ -1,4 +1,4 @@
-package com.alexis.demo.webserviceproject_v2.configuration;
+package com.alexis.demo.java_enterprise_project.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

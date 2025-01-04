@@ -1,8 +1,8 @@
-package com.alexis.demo.webserviceproject_v2.controller;
+package com.alexis.demo.java_enterprise_project.controller;
 
-import com.alexis.demo.webserviceproject_v2.model.Movie;
-import com.alexis.demo.webserviceproject_v2.repository.MovieRepository;
-import com.alexis.demo.webserviceproject_v2.service.MovieService;
+import com.alexis.demo.java_enterprise_project.model.Movie;
+import com.alexis.demo.java_enterprise_project.repository.MovieRepository;
+import com.alexis.demo.java_enterprise_project.service.MovieService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
@@ -39,6 +39,7 @@ public class MovieController {
 
     @PostMapping
     public ResponseEntity<Movie> addMovie(@RequestBody Movie movie) {
+        System.out.println("Received movie: " + movie);
         Movie savedMovie = movieRepository.save(movie);
         return new ResponseEntity<>(savedMovie, HttpStatus.CREATED);
     }

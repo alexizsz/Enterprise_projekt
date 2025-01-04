@@ -1,9 +1,9 @@
-package com.alexis.demo.webserviceproject_v2.controller;
+package com.alexis.demo.java_enterprise_project.controller;
 
-import com.alexis.demo.webserviceproject_v2.model.Movie;
-import com.alexis.demo.webserviceproject_v2.model.MovieReview;
-import com.alexis.demo.webserviceproject_v2.repository.MovieRepository;
-import com.alexis.demo.webserviceproject_v2.repository.MovieReviewRepository;
+import com.alexis.demo.java_enterprise_project.model.Movie;
+import com.alexis.demo.java_enterprise_project.model.MovieReview;
+import com.alexis.demo.java_enterprise_project.repository.MovieRepository;
+import com.alexis.demo.java_enterprise_project.repository.MovieReviewRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

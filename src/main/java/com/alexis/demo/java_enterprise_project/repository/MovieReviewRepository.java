@@ -1,6 +1,6 @@
-package com.alexis.demo.webserviceproject_v2.repository;
+package com.alexis.demo.java_enterprise_project.repository;
 
-import com.alexis.demo.webserviceproject_v2.model.MovieReview;
+import com.alexis.demo.java_enterprise_project.model.MovieReview;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

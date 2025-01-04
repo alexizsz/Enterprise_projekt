@@ -1,4 +1,4 @@
-package com.alexis.demo.webserviceproject_v2.model;
+package com.alexis.demo.java_enterprise_project.model;
 
 import jakarta.persistence.*;
 /**JSON format för enklare testning:

@@ -1,6 +1,6 @@
-package com.alexis.demo.webserviceproject_v2.repository;
+package com.alexis.demo.java_enterprise_project.repository;
 
-import com.alexis.demo.webserviceproject_v2.model.Movie;
+import com.alexis.demo.java_enterprise_project.model.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MovieRepository extends JpaRepository<Movie, Long> {
