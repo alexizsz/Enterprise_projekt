@@ -65,11 +65,11 @@ public class RegistrationController {
         ((InMemoryUserDetailsManager) userDetailsService).createUser(newUser);
 
         userEmails.put(appUser.getName(), htmlUtil.escapeHtml(appUser.getEmail()));
-
+        System.out.println("Created user :" + appUser.getEmail());
         model.addAttribute("user", appUser);
         model.addAttribute("userName", appUser.getName());
 
-        return "regSuccessful";
+        return "successregisterpage";
 
     }
 
