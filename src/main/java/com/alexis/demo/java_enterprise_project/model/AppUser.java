@@ -23,6 +23,10 @@ public class AppUser {
     @Size(min = 2, message = "Minimum of 2 characters for password")
     private String password;
 
+    public Long getId() {
+        return id;
+    }
+
     public String getName(){return name;}
     public void setName(String name) {this.name = name;    }
 

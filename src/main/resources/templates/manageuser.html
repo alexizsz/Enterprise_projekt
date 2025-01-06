@@ -1,10 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Manage Users</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
-
+<header>
+    <h1>Welcome to the Enterprise project! </h1>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a> </li>
+            <li><a href="/login">Login</a> </li>
+            <li><a href="/registerpage">Registration</a> </li>
+            <li><a href="/manageuser">Manage users</a></li>
+            <form th:action="@{/performLogout}" method="post" >
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <input type="submit" id="logoutButton" value="Logout" />
+            </form>
+            <li>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div>
+    <h2>Current Users</h2>
+    <div th:if="${message}" class="success">
+        <p th:text="${message}"></p>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.email}"></td>
+            <td>
+                <form th:action="@{/manageuser/delete}" method="post">
+                    <input type="hidden" name="id" th:value="${user.id}"/>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
