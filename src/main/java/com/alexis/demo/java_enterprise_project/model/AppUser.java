@@ -1,10 +1,17 @@
 package com.alexis.demo.java_enterprise_project.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.*;
-/**
- * Klass för att föra vidare information mellan klasser. Innehåller ingen och ska inte innehålla någon affärslogik
- * Vi använder oss av diverse inbyggda metoder från jakarta för att sätta restrains*/
+
+@Entity
 public class AppUser {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotEmpty(message = "Name is required")
     @Size(min = 2, message = "Minimum of 2 characters for account name")

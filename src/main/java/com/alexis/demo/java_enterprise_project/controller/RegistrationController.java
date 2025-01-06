@@ -1,6 +1,7 @@
 package com.alexis.demo.java_enterprise_project.controller;
 
 import com.alexis.demo.java_enterprise_project.model.AppUser;
+import com.alexis.demo.java_enterprise_project.repository.AppUserRepository;
 import com.alexis.demo.java_enterprise_project.utility.HtmlUtil;
 import com.alexis.demo.java_enterprise_project.utility.MaskingUtils;
 import jakarta.validation.Valid;
@@ -32,12 +33,14 @@ public class RegistrationController {
     private final UserDetailsService userDetailsService;
     private final Map<String, String> userEmails = new HashMap<>();
     private final HtmlUtil htmlUtil;
+    private final AppUserRepository appUserRepository;
 
     @Autowired
-    public RegistrationController(HtmlUtil htmlUtil, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService, MaskingUtils maskingUtils) {
+    public RegistrationController(HtmlUtil htmlUtil, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService, MaskingUtils maskingUtils, AppUserRepository appUserRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userDetailsService = userDetailsService;
         this.htmlUtil = htmlUtil;
+        this.appUserRepository = appUserRepository;
     }
 
     @GetMapping
@@ -55,14 +58,27 @@ public class RegistrationController {
             System.out.println(appUser);
             return "registerpage";
         }
-        logger.debug("Registration for user with email {}", new MaskingUtils().maskEmail(appUser.getEmail()) + " done");
+        if (appUserRepository.findByName(appUser.getName()) != null) {
+            model.addAttribute("error", "A user with this name already exists. Please choose a different name.");
+            logger.debug("Attempted registration with duplicate username: {}", appUser.getName());
+            return "registerpage";
+        }
+        if (appUserRepository.findByEmail(appUser.getEmail()) != null) {
+            model.addAttribute("error", "A user with this email already exists. Please use a different email.");
+            logger.debug("Attempted registration with duplicate email: {}", appUser.getEmail());
+            return "registerpage";
+        }
+
         String encodedPassword = passwordEncoder.encode(appUser.getPassword());
         appUser.setPassword(encodedPassword);
+        appUserRepository.save(appUser);
+
         UserDetails newUser = User.withUsername(appUser.getName())
                 .password(appUser.getPassword())
                 .roles("USER")
                 .build();
         ((InMemoryUserDetailsManager) userDetailsService).createUser(newUser);
+
 
         userEmails.put(appUser.getName(), htmlUtil.escapeHtml(appUser.getEmail()));
         System.out.println("Created user :" + appUser.getEmail());
@@ -73,7 +89,4 @@ public class RegistrationController {
 
     }
 
-    public Map<String, String> getUserEmails() {
-        return userEmails;
-    }
 }
