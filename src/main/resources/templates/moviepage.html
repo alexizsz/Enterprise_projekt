@@ -5,7 +5,9 @@
     <title>User Registration</title>
     <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
-<nav>
+<header>
+    <h1>Welcome to the Enterprise project! </h1>
+    <nav>
     <ul>
         <li><a href="/">Home</a> </li>
         <li><a href="/moviepage">Movies</a> </li>
@@ -23,8 +25,15 @@
         </li>
     </ul>
 </nav>
+</header>
 <body>
 <main>
+    <div th:if="${param.success}" class="success-message">
+        <p th:text="'Success: ' + ${param.success}"></p>
+    </div>
+    <div th:if="${param.error}" class="error-message">
+        <p th:text="'Error: ' + ${param.error}"></p>
+    </div>
     <h2>Available Movies</h2>
     <table>
         <thead>
@@ -39,6 +48,12 @@
             <td th:text="${movie.title}"></td>
             <td th:text="${movie.director}"></td>
             <td th:text="${movie.genre}"></td>
+            <td>
+                <form th:action="@{/moviepage/details}" method="get" style="display: inline;">
+                    <input type="hidden" name="movieId" th:value="${movie.id}" />
+                    <button type="submit">Details</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

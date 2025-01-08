@@ -29,6 +29,7 @@ public class UserManagementController {
         model.addAttribute("users", usersList);
         return "manageuser";
     }
+
     @PostMapping("/delete")
     public String deleteUser(@RequestParam("id") Long id, Model model) {
         appUserRepository.deleteById(id);

@@ -33,15 +33,20 @@ public class MovieReviewController {
     }
 
     @PostMapping("/movie/{movieId}")
-    public ResponseEntity<?> addReviewToMovie(@PathVariable Long movieId, @RequestBody MovieReview review) {
+    public String addReviewToMovie(@PathVariable Long movieId, @RequestParam String review, @RequestParam int rating) {
         Optional<Movie> optionalMovie = movieRepository.findById(movieId);
         if (optionalMovie.isEmpty()) {
-            return new ResponseEntity<>("Movie not found", HttpStatus.NOT_FOUND);
+            return "redirect:/moviepage?error=MovieNotFound";
         }
+
         Movie movie = optionalMovie.get();
-        review.setMovie(movie);
-        MovieReview savedReview = movieReviewRepository.save(review);
-        return new ResponseEntity<>(savedReview, HttpStatus.CREATED);
+        MovieReview newReview = new MovieReview();
+        newReview.setReview(review);
+        newReview.setRating(rating);
+        newReview.setMovie(movie);
+
+        movieReviewRepository.save(newReview);
+        return "redirect:/moviepage/details?movieId=" + movieId + "&success=ReviewAdded";
     }
 
     @DeleteMapping("/{reviewId}")
@@ -53,4 +58,5 @@ public class MovieReviewController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
 }
