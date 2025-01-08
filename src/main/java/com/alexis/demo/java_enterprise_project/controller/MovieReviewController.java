@@ -52,18 +52,28 @@ public class MovieReviewController {
 
         model.addAttribute("movie", movie);
         model.addAttribute("reviews", movieReviewRepository.findByMovieId(movieId));
-        model.addAttribute("success", "Review added successfully");
+        model.addAttribute("success", "Review added");
         return "moviedetailspage";
     }
 
     @DeleteMapping("/{reviewId}")
-    public ResponseEntity<Void> deleteReview(@PathVariable Long reviewId) {
+    public String deleteReview(@PathVariable Long reviewId, @RequestParam Long movieId, Model model) {
         if (movieReviewRepository.existsById(reviewId)) {
             movieReviewRepository.deleteById(reviewId);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            model.addAttribute("success", "Review deleted");
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            model.addAttribute("error", "Review not found");
         }
+
+        Optional<Movie> movieOptional = movieRepository.findById(movieId);
+        if (movieOptional.isPresent()) {
+            Movie movie = movieOptional.get();
+            model.addAttribute("movie", movie);
+            model.addAttribute("reviews", movieReviewRepository.findByMovieId(movieId));
+        }
+
+        return "moviedetailspage";
     }
+
 
 }

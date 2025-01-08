@@ -72,11 +72,13 @@ public class MovieReviewControllerTest {
     public void testDeleteReview() {
         when(movieReviewRepository.existsById(1L)).thenReturn(true);
 
-        ResponseEntity<Void> response = movieReviewController.deleteReview(1L);
+        when(movieRepository.findById(1L)).thenReturn(Optional.of(movie));
 
-        assertNotNull(response);
-        assertEquals(204, response.getStatusCodeValue());
-        verify(movieReviewRepository, times(1)).deleteById(1L);
+        String result = movieReviewController.deleteReview(1L, 1L, model);
+
+        assertNotNull(result);
+        assertEquals("moviedetailspage", result);
     }
+
 }
 
