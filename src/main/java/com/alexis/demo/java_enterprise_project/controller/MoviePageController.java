@@ -38,6 +38,7 @@ public class MoviePageController {
         List<MovieReview> reviews = movieReviewRepository.findByMovieId(movieId);
         model.addAttribute("movie", movie);
         model.addAttribute("reviews", reviews);
+
         return "moviedetailspage";
     }
 }

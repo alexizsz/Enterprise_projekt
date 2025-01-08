@@ -78,7 +78,7 @@ public class RegistrationController {
                 .roles("USER")
                 .build();
         ((InMemoryUserDetailsManager) userDetailsService).createUser(newUser);
-
+    
         userEmails.put(appUser.getName(), htmlUtil.escapeHtml(appUser.getEmail()));
         System.out.println("Created user :" + appUser.getEmail());
         model.addAttribute("user", appUser);

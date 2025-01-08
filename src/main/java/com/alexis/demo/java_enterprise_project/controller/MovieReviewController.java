@@ -6,12 +6,14 @@ import com.alexis.demo.java_enterprise_project.repository.MovieRepository;
 import com.alexis.demo.java_enterprise_project.repository.MovieReviewRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/reviews")
 public class MovieReviewController {
 
@@ -33,10 +35,11 @@ public class MovieReviewController {
     }
 
     @PostMapping("/movie/{movieId}")
-    public String addReviewToMovie(@PathVariable Long movieId, @RequestParam String review, @RequestParam int rating) {
+    public String addReviewToMovie(@PathVariable Long movieId, @RequestParam String review, @RequestParam int rating, Model model) {
         Optional<Movie> optionalMovie = movieRepository.findById(movieId);
         if (optionalMovie.isEmpty()) {
-            return "redirect:/moviepage?error=MovieNotFound";
+            model.addAttribute("error", "Error");
+            return "moviedetailspage";
         }
 
         Movie movie = optionalMovie.get();
@@ -46,7 +49,11 @@ public class MovieReviewController {
         newReview.setMovie(movie);
 
         movieReviewRepository.save(newReview);
-        return "redirect:/moviepage/details?movieId=" + movieId + "&success=ReviewAdded";
+
+        model.addAttribute("movie", movie);
+        model.addAttribute("reviews", movieReviewRepository.findByMovieId(movieId));
+        model.addAttribute("success", "Review added successfully");
+        return "moviedetailspage";
     }
 
     @DeleteMapping("/{reviewId}")

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
   <meta charset="ISO-8859-1">
-  <title>User Registration</title>
+  <title>Movie details</title>
   <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <header>
@@ -28,11 +28,12 @@
 </header>
 <body>
 <main>
-  <div th:if="${param.success}" class="success-message">
-    <p th:text="'Success: ' + ${param.success}"></p>
+
+  <div th:if="${success}">
+    <p th:text="'Success: ' + ${success}"></p>
   </div>
-  <div th:if="${param.error}" class="error-message">
-    <p th:text="'Error: ' + ${param.error}"></p>
+  <div th:if="${error}">
+    <p th:text="'Error: ' + ${error}"></p>
   </div>
 
   <h2 th:text="${movie.title}"></h2>
