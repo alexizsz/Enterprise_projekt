@@ -23,5 +23,4 @@ public class MovieService {
                 .toUriString();
         return restTemplate.getForObject(url, String.class);
     }
-
 }
